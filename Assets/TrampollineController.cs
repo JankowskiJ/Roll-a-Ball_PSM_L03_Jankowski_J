@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrampollineController : MonoBehaviour
@@ -21,16 +22,14 @@ public class TrampollineController : MonoBehaviour
     {
         if (onTouch)
         {
-            player.GetComponent<Rigidbody>().AddForce(player.transform.up * 20f);
+            player.GetComponent<Rigidbody>().AddForce(transform.up * 10, ForceMode.Impulse);
+            Debug.Log("skok");
             onTouch = false;
         }
     }
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(other.name);
-        Debug.Log(player.name);
-        if (other.name == player.name)
-        {
+        if(collider.GameObject()==player) {
             onTouch = true;
         }
     }

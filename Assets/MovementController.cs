@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MovementController : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class MovementController : MonoBehaviour
     public float player_Thrust = 20f;
     public float jump_Force = 0.5f;
     public int score;
-    private bool keyW, keyS, keyA, keyD, keySpace;
-    private float timer;
+    private bool isWin;
+    private float timer=0;
     Vector3 direction, jumpVector;
 
     // Start is called before the first frame update
@@ -60,9 +61,13 @@ public class MovementController : MonoBehaviour
         {
             jumpVector += Vector3.up;
         }
-
-        //direction = direction.normalized;
-
+        if (isWin)
+        {
+            timer += Time.deltaTime;
+            if(timer >= 5) {
+                SceneManager.LoadScene(2, LoadSceneMode.Single);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -102,6 +107,7 @@ public class MovementController : MonoBehaviour
         {
             Debug.Log("Zdoby³eœ wszystkie punkty");
             winText.text = "Wygra³eœ";
+            isWin = true;
         }
     }
 }
