@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class MovementController : MonoBehaviour
 {
+    public TMP_Text scoreText;
+    public TMP_Text winText;
     Rigidbody player_Rigidbody;
     public float player_Thrust = 20f;
     public float jump_Force = 0.5f;
@@ -93,9 +97,11 @@ public class MovementController : MonoBehaviour
     {
         score += 1;
         Debug.Log("Zdoby³eœ punkt! masz teraz: "+score+" punkty");
+        scoreText.text = "Score: " + score;
         if(score == 7) 
         {
             Debug.Log("Zdoby³eœ wszystkie punkty");
+            winText.text = "Wygra³eœ";
         }
     }
 }
