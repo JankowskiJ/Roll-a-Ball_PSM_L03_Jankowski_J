@@ -7,6 +7,10 @@ public class TrampollineController : MonoBehaviour
 {
     public GameObject player;
     bool onTouch = false;
+    int counter;
+    int jumpForceCombo;
+    public float timer = 0f;
+    float resetTime = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,15 +18,20 @@ public class TrampollineController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        timer += Time.deltaTime;
+        if (timer >= resetTime)
+        {
+            counter = 0;
+            jumpForceCombo = 0;
+            timer = 0f;
+        }
     }
     private void FixedUpdate()
     {
         if (onTouch)
         {
-            player.GetComponent<Rigidbody>().AddForce(transform.up * 10, ForceMode.Impulse);
+            player.GetComponent<Rigidbody>().AddForce(transform.up * jumpForceCombo , ForceMode.Impulse);
             Debug.Log("skok");
             onTouch = false;
         }
@@ -31,6 +40,14 @@ public class TrampollineController : MonoBehaviour
     {
         if(collider.GameObject()==player) {
             onTouch = true;
+            counter++;
+            jumpForceCombo = counter * 2;
+            timer = 0f;
+        }
+        else if (collider.CompareTag("Ground"))
+        {
+            jumpForceCombo = 0;
+            timer = 0f;
         }
     }
 }
