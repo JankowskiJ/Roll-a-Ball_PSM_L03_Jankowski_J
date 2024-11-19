@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    AudioSource m_AudioSource;
+    private AudioSource m_AudioSource;
     // Start is called before the first frame update
     void Start()
     {

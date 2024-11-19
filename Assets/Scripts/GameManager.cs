@@ -1,25 +1,33 @@
+using UnityEditor.VersionControl;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using System;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject[] points;
+    private GameObject[] points;
+    private GameObject player;
     [SerializeField]
-    int maxScore;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private int maxScore, sceneNumber;
+    public event Action WinEvent;
     void Start()
     {
-       points = GameObject.FindGameObjectsWithTag("Collectible"); 
-       maxScore = points.Length;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        points = GameObject.FindGameObjectsWithTag("Collectible");
+        player = GameObject.FindGameObjectWithTag("Player");
+        maxScore = points.Length;
+        player.GetComponent<ScoreController>().PickupEvent += NextLevel;
+        sceneNumber = SceneManager.GetActiveScene().buildIndex;
     }
     private void NextLevel() 
     {
-
+        if (player.GetComponent<ScoreController>().score == maxScore)
+        {
+           WinEvent?.Invoke();
+           Invoke("LevelLoad", 5.0f);
+        }
+    }
+    private void LevelLoad()
+    {
+        SceneManager.LoadScene(sceneNumber+1, LoadSceneMode.Single);
     }
 }
