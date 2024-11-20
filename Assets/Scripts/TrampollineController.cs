@@ -1,53 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
+using System;
 public class TrampollineController : MonoBehaviour
 {
-    public GameObject player;
-    bool onTouch = false;
-    int counter;
-    int jumpForceCombo;
-    public float timer = 0f;
-    float resetTime = 5f;
+    private GameObject player, gameManager;
+    private bool onTouch = false;
+    private int counter;
+    public int maxCounter = 5;
+    private int jumpForceCombo;
+    public event Action TrampolineEvent;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager.GetComponent<TrampolineManager>().TrampolineTouchCountEvent += jumpCalc;
     }
-
     // Update is called once per frame
     void Update() {
-        timer += Time.deltaTime;
-        if (timer >= resetTime)
-        {
-            counter = 0;
-            jumpForceCombo = 0;
-            timer = 0f;
-        }
+
     }
     private void FixedUpdate()
     {
         if (onTouch)
         {
             player.GetComponent<Rigidbody>().AddForce(transform.up * jumpForceCombo , ForceMode.Impulse);
-            Debug.Log("skok");
             onTouch = false;
         }
     }
     public void OnTriggerEnter(Collider collider)
     {
-        if(collider.GameObject()==player) {
+        if(collider.CompareTag("Player")) {
             onTouch = true;
-            counter++;
-            jumpForceCombo = counter * 2;
-            timer = 0f;
+            TrampolineEvent?.Invoke();
         }
-        else if (collider.CompareTag("Ground"))
+    }
+    private void jumpCalc()
+    {
+        counter = gameManager.GetComponent<TrampolineManager>().TrampolineTouchCount;
+        if (counter <= maxCounter)
         {
-            jumpForceCombo = 0;
-            timer = 0f;
+            jumpForceCombo = counter * 2;
         }
     }
 }

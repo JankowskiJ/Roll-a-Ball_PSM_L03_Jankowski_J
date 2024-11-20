@@ -22,6 +22,7 @@ public class Collectible : MonoBehaviour
         m_AudioSource.Play();
         Invoke("deActiveObject", 2.0f);
         GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
     }
     private void deActiveObject() 
     {
