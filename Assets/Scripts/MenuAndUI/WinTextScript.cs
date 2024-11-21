@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-
 public class WinTextScript : MonoBehaviour
 {
     private GameObject gameManager;

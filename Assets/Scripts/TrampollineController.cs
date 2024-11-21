@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+
 public class TrampollineController : MonoBehaviour
 {
     private GameObject player, gameManager;
@@ -7,17 +8,13 @@ public class TrampollineController : MonoBehaviour
     private int counter;
     public int maxCounter = 5;
     private int jumpForceCombo;
-    public event Action TrampolineEvent;
+    public event Action TrampolineTouchEvent,TrampolineNoTouchEvent;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
         gameManager.GetComponent<TrampolineManager>().TrampolineTouchCountEvent += jumpCalc;
-    }
-    // Update is called once per frame
-    void Update() {
-
     }
     private void FixedUpdate()
     {
@@ -31,7 +28,15 @@ public class TrampollineController : MonoBehaviour
     {
         if(collider.CompareTag("Player")) {
             onTouch = true;
-            TrampolineEvent?.Invoke();
+            TrampolineTouchEvent?.Invoke();
+        }
+    }
+    public void OnTriggerExit(Collider collider)
+    {
+        if (collider.CompareTag("Player"))
+        {
+            onTouch = true;
+            TrampolineNoTouchEvent?.Invoke();
         }
     }
     private void jumpCalc()

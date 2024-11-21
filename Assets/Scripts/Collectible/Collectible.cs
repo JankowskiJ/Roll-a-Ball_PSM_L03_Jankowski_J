@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
 public class Collectible : MonoBehaviour
 {
     private AudioSource m_AudioSource;
@@ -11,7 +7,6 @@ public class Collectible : MonoBehaviour
     {
         m_AudioSource = GetComponent<AudioSource>();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -19,10 +14,13 @@ public class Collectible : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        m_AudioSource.Play();
-        Invoke("deActiveObject", 2.0f);
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<BoxCollider>().enabled = false;
+        if (other.CompareTag("Player"))
+        {
+            m_AudioSource.Play();
+            Invoke("deActiveObject", 2.0f);
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
+        }
     }
     private void deActiveObject() 
     {

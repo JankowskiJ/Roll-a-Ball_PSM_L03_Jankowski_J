@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections;
 public class TrampolineManager : MonoBehaviour
 {
     public int TrampolineTouchCount = 0;
@@ -16,7 +15,8 @@ public class TrampolineManager : MonoBehaviour
         trampolines = GameObject.FindGameObjectsWithTag("Trampoline");
         for (int i = 0; i < trampolines.Length; i++) 
         {
-            trampolines[i].GetComponent<TrampollineController>().TrampolineEvent += CountAdder;
+            trampolines[i].GetComponent<TrampollineController>().TrampolineTouchEvent += CountAdder;
+            trampolines[i].GetComponent<TrampollineController>().TrampolineNoTouchEvent += NoTrampolineTouch;
         }
     }
     private void CountReset()
@@ -32,11 +32,9 @@ public class TrampolineManager : MonoBehaviour
         TrampolineTouchCount++;
         isOnTrampoline = true;
         TrampolineTouchCountEvent.Invoke();
-        StartCoroutine(Coroutine());
     }
-    IEnumerator Coroutine()
+    private void NoTrampolineTouch()
     {
-        yield return new WaitForSeconds(0.1f);
         isOnTrampoline = false;
     }
 }

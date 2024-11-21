@@ -1,18 +1,15 @@
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
-
 public class TextScript : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject player;
+    private GameObject gameManager;
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<ScoreController>().PickupEvent += changeText;
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager.GetComponent<GameManager>().ScoreAddEvent += changeText;
     }
     private void changeText() 
     {
-       gameObject.GetComponent<TMP_Text>().text = "Score: " + player.GetComponent<ScoreController>().score;
+       gameObject.GetComponent<TMP_Text>().text = "Score: " + gameManager.GetComponent<GameManager>().score;
     }
 }
