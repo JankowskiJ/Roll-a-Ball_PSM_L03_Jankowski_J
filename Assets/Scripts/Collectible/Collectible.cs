@@ -20,6 +20,7 @@ public class Collectible : MonoBehaviour
             Invoke("deActiveObject", 2.0f);
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<BoxCollider>().enabled = false;
+            GetComponent<Light>().enabled = false;
         }
     }
     private void deActiveObject() 
