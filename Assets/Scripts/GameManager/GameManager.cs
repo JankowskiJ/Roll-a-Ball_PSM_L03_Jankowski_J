@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int score=0;
     public event Action WinEvent;
     public event Action ScoreAddEvent;
+
     void Start()
     {
         points = GameObject.FindGameObjectsWithTag("Collectible");

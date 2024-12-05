@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System;
 public class LavaController : MonoBehaviour
 {
     private Vector3 startPosition;
@@ -7,12 +7,6 @@ public class LavaController : MonoBehaviour
     void Start()
     {
         startPosition = new Vector3(5,0.5f,1);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     public void OnCollisionEnter(Collision collision)
     {

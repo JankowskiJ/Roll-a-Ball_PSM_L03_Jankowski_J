@@ -1,9 +1,11 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class TrampollineController : MonoBehaviour
 {
     private GameObject player, gameManager;
+    private Component particle;
     private bool onTouch = false;
     private int counter;
     public int maxCounter = 5;
@@ -15,6 +17,7 @@ public class TrampollineController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
         gameManager.GetComponent<TrampolineManager>().TrampolineTouchCountEvent += jumpCalc;
+        particle = gameObject.GetComponentInChildren<ParticleSystem>();
     }
     private void FixedUpdate()
     {
@@ -29,6 +32,7 @@ public class TrampollineController : MonoBehaviour
         if(collider.CompareTag("Player")) {
             onTouch = true;
             TrampolineTouchEvent?.Invoke();
+            particle.GetComponent<ParticleSystem>().Play();
         }
     }
     public void OnTriggerExit(Collider collider)
@@ -37,6 +41,7 @@ public class TrampollineController : MonoBehaviour
         {
             onTouch = true;
             TrampolineNoTouchEvent?.Invoke();
+            particle.GetComponent<ParticleSystem>().Pause();
         }
     }
     private void jumpCalc()

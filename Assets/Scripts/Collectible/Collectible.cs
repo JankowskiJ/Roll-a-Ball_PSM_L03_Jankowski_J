@@ -1,4 +1,6 @@
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+
 public class Collectible : MonoBehaviour
 {
     private AudioSource m_AudioSource;
@@ -21,6 +23,7 @@ public class Collectible : MonoBehaviour
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<Light>().enabled = false;
+            GetComponent<ParticleSystem>().Pause();
         }
     }
     private void deActiveObject() 
