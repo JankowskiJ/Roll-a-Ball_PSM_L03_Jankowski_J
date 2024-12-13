@@ -9,6 +9,8 @@ TagManager:
   - GameManager
   - Ground
   - Trampoline
+  - Lava
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -10,6 +10,6 @@ public class TextScript : MonoBehaviour
     }
     private void changeText() 
     {
-       gameObject.GetComponent<TMP_Text>().text = "Score: " + gameManager.GetComponent<GameManager>().score;
+       gameObject.GetComponent<TMP_Text>().text = "" + gameManager.GetComponent<GameManager>().score;
     }
 }
