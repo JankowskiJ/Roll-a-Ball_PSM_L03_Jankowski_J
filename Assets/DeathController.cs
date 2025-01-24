@@ -12,19 +12,19 @@ public class DeathController : MonoBehaviour
         {
             isInvincible = true;
             Death();
-            Invoke("DeathFrames", 0.2f);
+            Invoke("DeathFrames", 3f);
         }
         if (collision.gameObject.CompareTag("Bullet")&& !isInvincible)
         {
             isInvincible = true;
             Death();
-            Invoke("DeathFrames", 0.2f);
+            Invoke("DeathFrames", 3f);
         }
         
     }
     private void Death()
     {
-            DeathEvent?.Invoke();
+        DeathEvent?.Invoke();
     }
     private void DeathFrames()
     {

@@ -11,6 +11,9 @@ TagManager:
   - Trampoline
   - Lava
   - Bullet
+  - FinishLine
+  - DataManager
+  - WinText
   layers:
   - Default
   - TransparentFX
@@ -21,8 +24,8 @@ TagManager:
   - Ground
   - Player
   - Collectible
-  - 
-  - 
+  - Bullets
+  - LastChanceZone
   - 
   - 
   - 

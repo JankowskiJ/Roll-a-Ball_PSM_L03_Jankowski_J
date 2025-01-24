@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4136385020882621218}
   - component: {fileID: 7823743442300765617}
   - component: {fileID: 8531570329152182894}
-  - component: {fileID: 7866186399804478019}
+  - component: {fileID: 5447671198356249166}
   m_Layer: 0
   m_Name: Barrel1
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7866186399804478019
+--- !u!114 &5447671198356249166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,9 +118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4327962655001894361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffc72e81796df4e4f89ca23743ffc7ab, type: 3}
+  m_Script: {fileID: 11500000, guid: ce5d4f2579f892c4bb6951c1018f8f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 1
 --- !u!1 &5826180835458680953
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +167,7 @@ GameObject:
   - component: {fileID: 4173310257545914979}
   - component: {fileID: 1762963967611955660}
   - component: {fileID: 4380188711251737636}
-  - component: {fileID: 6193488507116793600}
+  - component: {fileID: 6686707103764800061}
   m_Layer: 0
   m_Name: Barrel2
   m_TagString: Untagged
@@ -263,7 +264,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6193488507116793600
+--- !u!114 &6686707103764800061
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,9 +273,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6245177984228218712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffc72e81796df4e4f89ca23743ffc7ab, type: 3}
+  m_Script: {fileID: 11500000, guid: ce5d4f2579f892c4bb6951c1018f8f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 1
 --- !u!1 &6550234971712663781
 GameObject:
   m_ObjectHideFlags: 0

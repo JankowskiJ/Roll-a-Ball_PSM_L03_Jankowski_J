@@ -1,21 +1,24 @@
 using UnityEngine;
-public class gunController : MonoBehaviour
+public abstract class gunController : MonoBehaviour
 {
-    private GameObject bullet;
-    private Vector3 direction;
     [SerializeField]
-    private float bulletSpeed = 0.5f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected float bulletSpeed = 1f;
+    protected GameObject bullet;
+    protected float randomNumber;
+    protected Vector3 direction;
+    protected virtual void Start()
     {
         bullet = GameObject.FindGameObjectWithTag("Bullet");
-        direction = new Vector3(0, 0, -1);
-        InvokeRepeating("Shoot", 0f, bulletSpeed);
+        direction = transform.forward * -1;
     }
-    private void Shoot()
+    protected abstract void Shoot();
+    protected virtual void OnDisable()
     {
-        GameObject go = Instantiate(bullet, transform.position+direction, Quaternion.identity);
-        go.GetComponent<Rigidbody>().AddForce(direction * 15, ForceMode.Impulse);
-
+        CancelInvoke("Shoot");
+    }
+    protected virtual void OnEnable()
+    {
+        InvokeRepeating("Shoot", 0f, bulletSpeed);
+        randomNumber = Random.Range(0.0f, 1.0f);
     }
 }

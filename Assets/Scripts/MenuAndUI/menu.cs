@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class menu : MonoBehaviour
 {
-    public GameObject optionsPanel;
+    [SerializeField]
+    private GameObject optionsPanel;
     public void StartGame()
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
@@ -16,7 +17,6 @@ public class menu : MonoBehaviour
     {
         optionsPanel.SetActive(isActive);
     }
-    
     public void ExitGame()
     {
         Application.Quit();

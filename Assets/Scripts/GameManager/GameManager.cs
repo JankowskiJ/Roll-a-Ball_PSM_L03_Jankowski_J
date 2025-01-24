@@ -1,42 +1,63 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] points;
-    private GameObject player;
+    private GameObject player, finishLine, winText;
     [SerializeField]
     private int maxScore, sceneNumber;
-    public int score=0;
-    public event Action WinEvent;
-    public event Action ScoreAddEvent;
+    public int score = 0;
 
-    void Start()
+    private void Start()
     {
+
         points = GameObject.FindGameObjectsWithTag("Collectible");
         player = GameObject.FindGameObjectWithTag("Player");
-        maxScore = points.Length;
-        player.GetComponent<ScoreController>().PickupEvent += ScoreAdd;
-        player.GetComponent<ScoreController>().PickupEvent += NextLevel;
+        finishLine = GameObject.FindGameObjectWithTag("FinishLine");
+        winText = GameObject.FindGameObjectWithTag("WinText");
 
+        maxScore = points.Length;
+        if (finishLine != null)
+            finishLine.GetComponent<finishLineScript>().FinishLineEvent += NextLevelFinishLine;
+        if (player != null)
+        {
+            player.GetComponent<ScoreController>().PickupEvent += ScoreAdd;
+            player.GetComponent<ScoreController>().PickupEvent += NextLevelPoints;
+            player.GetComponent<DeathController>().DeathEvent += NextLevelDeath;
+        }
         sceneNumber = SceneManager.GetActiveScene().buildIndex;
     }
-    private void NextLevel() 
+    private void NextLevelPoints()
     {
-        if (score == maxScore)
+        if (sceneNumber == 1 && score == maxScore)
         {
-           WinEvent?.Invoke();
-           Invoke("LevelLoad", 5.0f);
+            winText.GetComponent<TMP_Text>().text = "Za chwilê przejdziesz na nastêpny poziom";
+            Invoke("LevelLoad", 5.0f);
         }
     }
+    private void NextLevelFinishLine()
+    {
+        winText.GetComponent<TMP_Text>().text = "Za chwilê przejdziesz na nastêpny poziom";
+        Invoke("LevelLoad", 5.0f);
+    }
+    private void NextLevelDeath()
+    {
+        if(sceneNumber == 3)
+        {
+            winText.GetComponent<TMP_Text>().text = "Zgin¹³eœ";
+            Invoke("LevelLoad", 3.0f);
+        }
+    }
+
     private void ScoreAdd()
     {
         score++;
-        ScoreAddEvent?.Invoke();
     }
     private void LevelLoad()
     {
-        SceneManager.LoadScene(sceneNumber+1, LoadSceneMode.Single);
+        SceneManager.LoadScene(sceneNumber + 1, LoadSceneMode.Single);
     }
 }

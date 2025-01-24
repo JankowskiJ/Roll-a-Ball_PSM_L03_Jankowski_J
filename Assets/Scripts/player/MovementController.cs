@@ -4,6 +4,7 @@ public class MovementController : MonoBehaviour
 {
     private Rigidbody player_Rigidbody;
     private float player_Thrust = 20f;
+    public bool isDead = false;
     private Vector3 direction;
     public event Action GroundTouchEvent;
     void Start()
@@ -17,7 +18,10 @@ public class MovementController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        MovementForce();
+        if (!isDead)
+        {
+            MovementForce();
+        }
     }
     private void MovementVector()
     {
